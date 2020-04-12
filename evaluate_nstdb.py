@@ -61,10 +61,10 @@ def main(args):
 
 def argparse_func():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset',type  = str , help = 'Choose one out of three datasets')
+    parser.add_argument('--dataset',default = 'nstdb',type  = str , help = 'Dataset Name')
     parser.add_argument('--datapath',type  = str , help = 'Path to the dataset')
-    parser.add_argument('--db',default = 99,type = int,help = 'Decibel level to consider for NSTDB(Not required here)') 
-    parser.add_argument('--evaluate_nstdb',action='store_true',help = 'To be used to evaluate nstdb decibel-wise')
+    parser.add_argument('--db',default = 12,type = int,help = 'The DB of noise')
+    parser.add_argument('--evaluate_nstdb',action = 'store_true',help = 'Mention this if you want to store action')
     args = parser.parse_args()
     return args
 
