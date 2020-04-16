@@ -12,10 +12,10 @@ A Deep Learning approach for robust R Peak detection in noisy ECG
 
 ### Datasets
 
-1) Chinese Physiological Signal Challenge (CPSC 2019)  
-2) MITBIH Database
-3) MIT-BIH ST Change Database
-4) Noise Stress Test DataBase (NSTDB) 
+1) [Chinese Physiological Signal Challenge (CPSC 2019)](http://2019.cpscsub.com/)
+2) [MITBIH Database](https://www.physionet.org/content/mitdb/1.0.0/)
+3) [MIT-BIH ST Change Database](http://physionet.incor.usp.br/physiobank/database/stdb/)
+4) [Noise Stress Test DataBase (NSTDB)](https://www.physionet.org/content/nstdb/1.0.0/) 
 
 ### Quantitative Comparisons
 Evaluation of model and three traditional methods on CPSC dataset
@@ -50,7 +50,7 @@ Evaluation of Model in presence of noise(SNR wise) on NSTDB
 * Train code will be made available soon
 
 -- To Evaluate the model
-* Download the model trained on all of CPSC dataset
+* [Download the model](https://drive.google.com/file/d/19xN7pZsALb09bxWjrSKdAlJmRqYL0M0g/view?usp=sharing)
 * To evaluate on CPSC: `sh evaluate_detectors_CPSC.sh`
 * To evaluate on any one of the other three datasets: `sh evaluate_detectors_CPSC.sh`
 * To evaluate on the NSTDB dataset: `sh evaluate_nstdb.sh` 
