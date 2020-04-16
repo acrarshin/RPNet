@@ -55,4 +55,4 @@ Evaluation of Model in presence of noise(SNR wise) on NSTDB
 * To evaluate on any one of the other three datasets: `sh evaluate_detectors_CPSC.sh`
 * To evaluate on the NSTDB dataset: `sh evaluate_nstdb.sh` 
 
-Details on possible changes that can be made to the scipt will be mentioned in the script
+Details on possible changes that can be made to the scipt will be mentioned in the script. We would like to acknowledge Mr Bernd Porr whose repo we forked for the [implementation](https://github.com/berndporr/py-ecg-detectors) of the traditional ECG Detectors.
