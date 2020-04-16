@@ -177,11 +177,11 @@ def score(r_ref, r_ans, fs_, thr_):
     print("REcall:{}, Precision(FNR):{}, F1-Score:{}".format(Recall,Precision,F1_score))
     return rec_acc,all_FP,all_FN,all_TP
 
-def load_model_CNN(SAVED_MODEL_PATH,test_loader):
+def load_model_CNN(SAVED_MODEL_PATH,test_loader,device='cpu'):
     C,H,W = 1,1,5000
     loaded_model = IncUNet(in_shape=(C,H,W))
     loaded_model.load_state_dict(torch.load(SAVED_MODEL_PATH, map_location = lambda storage, loc: storage, pickle_module=pickle))
-    loaded_model.cuda()
+    loaded_model.to(device)
     loaded_model.eval()
     print("...........Evaluation..........")
     loaded_model.eval()
@@ -192,7 +192,8 @@ def load_model_CNN(SAVED_MODEL_PATH,test_loader):
     y_pred = []
     with torch.no_grad():
         for step,x in enumerate(test_loader):
-            x = Variable(x[0].cuda())
+            print('Step = ',step)
+            x = Variable(x[0].to(device))
             y_predict_test = loaded_model(x)
             y_pred.append(y_predict_test[:,0,:])                    
     return y_pred

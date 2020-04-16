@@ -23,7 +23,6 @@ import py_ecg._tester_utils
 from utils import score,load_model_CNN,obtain_data
 
 def main(args): 
-    
     patient_ecg,windowed_beats = obtain_data(args)
     
     BATCH_SIZE = 64
@@ -31,8 +30,8 @@ def main(args):
     patient_ecg_t = patient_ecg_t.view((patient_ecg_t.shape[0],1,patient_ecg_t.shape[1]))
     patient_ecg_tl = TensorDataset(patient_ecg_t)
     trainloader = DataLoader(patient_ecg_tl, batch_size=BATCH_SIZE)
-    SAVED_MODEL_PATH = "model_1.pt"                                                                                                                             
-    y_pred = load_model_CNN(SAVED_MODEL_PATH,trainloader)
+    SAVED_MODEL_PATH = args.model_path                                                                                                                             
+    y_pred = load_model_CNN(SAVED_MODEL_PATH,trainloader,args.device)
     y_pred_1 = [] 
     for batch in range(len(y_pred)):
         for record in range(len(y_pred[batch])):
@@ -65,6 +64,8 @@ def argparse_func():
     parser.add_argument('--datapath',type  = str , help = 'Path to the dataset')
     parser.add_argument('--db',default = 99,type = int,help = 'Decibel level to consider for NSTDB(Not required here)') 
     parser.add_argument('--evaluate_nstdb',action='store_true',help = 'To be used to evaluate nstdb decibel-wise')
+    parser.add_argument('--device', type = str , default = 'cpu', help = 'cuda / cpu')
+    parser.add_argument('--model_path', type = str , help = 'Path to the model')
     args = parser.parse_args()
     return args
 
