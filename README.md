@@ -47,7 +47,7 @@ Evaluation of Model in presence of noise(SNR wise) on NSTDB
 * Download all the 4 datasets.
 
 -- To train the model
-* Train code will be made available soon
+* Run train_CPSC.ipynb
 
 -- To Evaluate the model
 * [Download the model](https://drive.google.com/file/d/19xN7pZsALb09bxWjrSKdAlJmRqYL0M0g/view?usp=sharing)
