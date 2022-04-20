@@ -29,7 +29,7 @@ class IncResBlock(nn.Module):
             nn.Conv1d(in_channels = planes//4,out_channels = planes//4,kernel_size = convsize+6,stride = convstr,padding = convpadding+3),
             nn.BatchNorm1d(planes//4))
         self.relu = nn.ReLU()
-    
+
     def forward(self, x):
         residual = self.Inputconv1x1(x)
 
@@ -54,7 +54,7 @@ class IncUNet (nn.Module):
             nn.LeakyReLU(0.2,),
             IncResBlock(64,64))
         self.e2 = nn.Sequential(
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(64, 128, kernel_size=4, stride=2,padding=1),
             nn.BatchNorm1d(128),
             IncResBlock(128,128))
@@ -62,7 +62,7 @@ class IncUNet (nn.Module):
             nn.Conv1d(128, 128, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(128))
         self.e3 = nn.Sequential(
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(128, 128, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(128),
             nn.LeakyReLU(0.2,),
@@ -73,16 +73,16 @@ class IncUNet (nn.Module):
             nn.LeakyReLU(0.2,),
             nn.Conv1d(256,256, kernel_size=4 , stride=1 , padding=1),
             nn.BatchNorm1d(256),
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(256,512, kernel_size=4, stride=2,padding=1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
         self.e4add = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=3, stride=1,padding=1),
-            nn.BatchNorm1d(512)) 
+            nn.BatchNorm1d(512))
         self.e5 = nn.Sequential(
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             nn.LeakyReLU(0.2,),
@@ -94,33 +94,33 @@ class IncUNet (nn.Module):
             nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=4, stride=2,padding=1),
-            nn.BatchNorm1d(512), 
+            nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.e6add = nn.Sequential(
             nn.Conv1d(512,512, kernel_size=3, stride=1,padding=1),
-            nn.BatchNorm1d(512)) 
-        
+            nn.BatchNorm1d(512))
+
         self.e7 = nn.Sequential(
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=4, stride=2,padding=1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.e8 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=4, stride=1,padding=1),
             nn.BatchNorm1d(512),
-            nn.LeakyReLU(0.2,inplace=True),
+            nn.LeakyReLU(0.2,),
             nn.Conv1d(512,512, kernel_size=4, stride=2,padding=1),
             nn.BatchNorm1d(512))
-        
-        
+
+
         self.d1 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(512, 512, kernel_size=4, stride=2,padding=1),
@@ -129,7 +129,7 @@ class IncUNet (nn.Module):
             nn.ConvTranspose1d(512, 512, kernel_size=4, stride=1,padding =1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.d2 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(1024, 512, kernel_size=4, stride=2,padding=1),
@@ -138,14 +138,14 @@ class IncUNet (nn.Module):
             nn.ConvTranspose1d(512, 512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.d3 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(1024, 512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             nn.Dropout(p=0.5),
             IncResBlock(512,512))
-        
+
         self.d4 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(1024, 512, kernel_size=4, stride=2,padding=1),
@@ -154,7 +154,7 @@ class IncUNet (nn.Module):
             nn.ConvTranspose1d(512, 512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.d5 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(1024, 512, kernel_size=4, stride=2,padding=1),
@@ -163,13 +163,13 @@ class IncUNet (nn.Module):
             nn.ConvTranspose1d(512, 512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.d6 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(1024, 512, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(512),
             IncResBlock(512,512))
-        
+
         self.d7 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(1024, 256, kernel_size=4, stride=2,padding=1),
@@ -178,7 +178,7 @@ class IncUNet (nn.Module):
             nn.ConvTranspose1d(256, 256, kernel_size=4, stride=1,padding=1),
             nn.BatchNorm1d(256),
             IncResBlock(256,256))
-        
+
         self.d8 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(512, 128, kernel_size=4, stride=2,padding=1),
@@ -186,24 +186,24 @@ class IncUNet (nn.Module):
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(128, 128, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(128))
-        
+
         self.d9 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(256, 128, kernel_size=3, stride=1,padding=1),
             nn.BatchNorm1d(128))
-        
+
         self.d10 = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(256, 64, kernel_size=4, stride=2,padding=1),
             nn.BatchNorm1d(64))
-        
+
         self.out_l = nn.Sequential(
             nn.LeakyReLU(0.2,),
             nn.ConvTranspose1d(128, in_channels, kernel_size=4, stride=2,padding=1))
-    
-    
+
+
     def forward(self, x):
-        
+
         en1 = self.e1(x)
         en2 = self.e2(en1)
         en2add = self.e2add(en2)
@@ -215,7 +215,7 @@ class IncUNet (nn.Module):
         en6add = self.e6add(en6)
         en7 = self.e7(en6add)
         en8 = self.e8(en7)
-        
+
         de1_ = self.d1(en8)
         de1 = torch.cat([en7,de1_],1)
         de2_ = self.d2(de1)
@@ -238,5 +238,5 @@ class IncUNet (nn.Module):
         de10_ = self.d10(de9)
         de10 = torch.cat([en1,de10_],1)
         out = self.out_l(de10)
-        
+
         return out
